@@ -1,4 +1,4 @@
-Using an LRU cache for storing user likes and writing cache data to the database every 30 minutes using an API call from the [cron job](https://cron-job.org/en/)
+Using an LRU cache for storing user likes and writing cache data to the database every 60 minutes using an API call from the [cron job](https://cron-job.org/en/)
 
 ---
 
