@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/import-style
 import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -25,6 +26,7 @@ const eslintConfig = [
             "comma-dangle": ["error", "always-multiline"],
             "arrow-parens": ["error", "always"],
             "unicorn/filename-case": ["off"],
+            "unicorn/no-null": ["off"],
         },
     },
 ];

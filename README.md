@@ -1,3 +1,7 @@
+Using an LRU cache for storing user likes and writing cache data to the database every 30 minutes using an API call from the [cron job](https://cron-job.org/en/)
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
