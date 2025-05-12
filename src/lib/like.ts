@@ -11,7 +11,10 @@ export async function Like({
     action,
 }: {
     action: "like" | "dislike";
-}): Promise<"liked" | "disliked" | null> {
+}): Promise<{
+    count: number;
+    action: "liked" | "disliked";
+} | null> {
     const cookieStore = await cookies();
     const userid = cookieStore.get(UserIDCookieKey)?.value;
 
@@ -20,9 +23,16 @@ export async function Like({
             return null;
         }
 
-        LikesCache.delete(userid);
+        const disliked = LikesCache.delete(userid);
 
-        return "disliked";
+        if (!disliked) {
+            return null;
+        }
+
+        return {
+            count: LikesCache.size,
+            action: "disliked",
+        };
     }
 
     if (LikesCache.has(userid as string)) {
@@ -34,7 +44,10 @@ export async function Like({
             time: new Date(),
         });
 
-        return "liked";
+        return {
+            count: LikesCache.size,
+            action: "liked",
+        };
     }
 
     const generatedUserId = generateUUID();
@@ -51,5 +64,8 @@ export async function Like({
         time: new Date(),
     });
 
-    return "liked";
+    return {
+        count: LikesCache.size,
+        action: "liked",
+    };
 }
