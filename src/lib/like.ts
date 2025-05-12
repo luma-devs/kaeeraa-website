@@ -11,7 +11,7 @@ export async function Like({
     action,
 }: {
     action: "like" | "dislike";
-}): Promise<void | null> {
+}): Promise<"liked" | "disliked" | null> {
     const cookieStore = await cookies();
     const userid = cookieStore.get(UserIDCookieKey)?.value;
 
@@ -22,7 +22,7 @@ export async function Like({
 
         LikesCache.delete(userid);
 
-        return;
+        return "disliked";
     }
 
     if (LikesCache.has(userid as string)) {
@@ -34,7 +34,7 @@ export async function Like({
             time: new Date(),
         });
 
-        return;
+        return "liked";
     }
 
     const generatedUserId = generateUUID();
@@ -47,5 +47,9 @@ export async function Like({
         httpOnly: false,
     });
 
-    return;
+    LikesCache.set(generatedUserId, {
+        time: new Date(),
+    });
+
+    return "liked";
 }
