@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { getDictionary } from "@/get-dictionary";
+import { i18n, Locale } from "@/i18n-config";
+import { Kaeeraa } from "@/constants/app";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -25,10 +28,10 @@ export async function generateMetadata({
     return {
         icons: "/favicon.webp",
         title: {
-            template: `%s | kaeeraa`,
-            default: "kaeeraa",
+            template: `%s | ${Kaeeraa}`,
+            default: Kaeeraa,
         },
-        description: "\"May your code be clean and your systems stable!\" ✨",
+        description: description,
     };
 }
 
@@ -37,7 +40,7 @@ export async function generateStaticParams() {
     return i18n.locales.map((locale) => ({ lang: locale }));
 }
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
     params,
 }: Readonly<{
@@ -48,7 +51,7 @@ export default function RootLayout({
     const dictionaries = await getDictionary(lang);
 
     return (
-        <html lang="en">
+        <html lang={lang}>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
