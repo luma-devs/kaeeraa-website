@@ -1,7 +1,8 @@
 import { NextRequest } from "next/server";
-import {LikesCache, RTLCache} from "@/lib/cache";
+import { LikesCache, RTLCache } from "@/lib/cache";
 import database from "@/db";
 import { likesTable } from "@/db/schema";
+import {getRelativeDate} from "@/utils/getRelativeDate";
 
 export async function GET(request: NextRequest): Promise<Response> {
     const pathname = request.nextUrl.pathname;
@@ -12,7 +13,23 @@ export async function GET(request: NextRequest): Promise<Response> {
         });
     }
 
-    console.log(LikesCache.entriesDescending());
+    LikesCache.set("asdfasdf", {
+        time: getRelativeDate({ minutes: -70 }),
+    });
+    LikesCache.set("asdfdsfsdaf", {
+        time: getRelativeDate({ minutes: -59 }),
+    });
+    LikesCache.set("wr23r23", {
+        time: getRelativeDate({ minutes: 0 }),
+    });
+
+    const entries = LikesCache.entriesDescending();
+    let current = entries.next();
+
+    while (current.value !== undefined) {
+        console.log(current);
+        current = entries.next();
+    }
 
     try {
         await database
