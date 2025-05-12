@@ -16,7 +16,7 @@ export async function generateMetadata({
     params,
 }: {
     params: Promise<{
-        lang: "en" | "ru";
+        lang: Locale;
     }>;
 }): Promise<Metadata> {
     const { lang } = await params;
@@ -35,13 +35,18 @@ export async function generateMetadata({
 // eslint-disable-next-line unicorn/prevent-abbreviations
 export async function generateStaticParams() {
     return i18n.locales.map((locale) => ({ lang: locale }));
-}``
+}
 
 export default function RootLayout({
     children,
+    params,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode;
+    params: Promise<{ lang: Locale }>;
 }>) {
+    const { lang } = await params;
+    const dictionaries = await getDictionary(lang);
+
     return (
         <html lang="en">
             <body
