@@ -16,7 +16,11 @@ export async function GET(request: NextRequest): Promise<Response> {
 
     // we sync every recent entry in the cache
     // (which age is not older than 60 minutes)
-    const entriesToSync = [];
+    const entriesToSync: Array<{
+        userid: string;
+        createdAt: Date;
+    }> = [];
+    // it's a linked list
     const entries = LikesCache.entriesDescending();
     let current = entries.next();
 
@@ -29,6 +33,7 @@ export async function GET(request: NextRequest): Promise<Response> {
 
         entriesToSync.push({
             userid,
+            createdAt: time,
         });
 
         current = entries.next();
