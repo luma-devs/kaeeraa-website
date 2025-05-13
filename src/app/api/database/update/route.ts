@@ -1,14 +1,15 @@
 import { NextRequest } from "next/server";
-import { LikesCache, RTLCache } from "@/lib/cache";
+import {LikeEntriesCache, LikesCache, RTLCache} from "@/lib/cache";
 import database from "@/db";
 import { likesTable } from "@/db/schema";
 import { getRelativeDate } from "@/utils/getRelativeDate";
+import {LikesQuantityCacheKey} from "@/constants/app";
 
 export async function GET(request: NextRequest): Promise<Response> {
     const pathname = request.nextUrl.pathname;
 
     // ratelimit for an hour
-    if (RTLCache.has(pathname)) {
+    if (false && RTLCache.has(pathname)) {
         return new Response(null, {
             status: 429,
         });
@@ -23,7 +24,7 @@ export async function GET(request: NextRequest): Promise<Response> {
     // it's a linked list
     const entries = LikesCache.entriesDescending();
     let current = entries.next();
-
+    console.log(LikesCache.size, LikeEntriesCache.get(LikesQuantityCacheKey));
     while (current.value !== undefined) {
         const [userid, { time }] = current.value;
 
@@ -37,6 +38,14 @@ export async function GET(request: NextRequest): Promise<Response> {
         });
 
         current = entries.next();
+    }
+
+    if (entriesToSync.length === 0) {
+        RTLCache.set(pathname, true);
+
+        return new Response(null, {
+            status: 200,
+        });
     }
 
     try {
