@@ -1,11 +1,32 @@
 "use server";
 
 import { cookies } from 'next/headers';
-import { LikesCache } from "@/lib/cache";
+import { LikesCache, LikeEntriesCache } from "@/lib/cache";
 import { v4 as generateUUID } from "uuid";
 import { setCookie } from "@/lib/cookies";
 import { getRelativeDate } from "@/utils/getRelativeDate";
-import { UserIDCookieKey } from "@/constants/app";
+import { LikesQuantityCacheKey, UserIDCookieKey } from "@/constants/app";
+
+function getLikes(): number {
+    return LikeEntriesCache.get(LikesQuantityCacheKey) ?? 0;
+}
+
+function addLike(userid: string): void {
+    LikeEntriesCache.set(LikesQuantityCacheKey, getLikes() + 1);
+    LikesCache.set(userid, {
+        time: new Date(),
+    });
+}
+
+function removeLike(userid: string): boolean {
+    const disliked = LikesCache.delete(userid);
+
+    if (disliked) {
+        LikeEntriesCache.set(LikesQuantityCacheKey, getLikes() - 1);
+    }
+
+    return disliked;
+}
 
 export async function Like({
     action,
@@ -21,40 +42,38 @@ export async function Like({
     if (action === "dislike") {
         if (!userid) {
             return {
-                count: LikesCache.size,
+                count: getLikes(),
                 action: null,
             };
         }
 
-        const disliked = LikesCache.delete(userid);
+        const disliked = removeLike(userid);
 
         if (!disliked) {
             return {
-                count: LikesCache.size,
+                count: getLikes(),
                 action: null,
             };
         }
 
         return {
-            count: LikesCache.size,
+            count: getLikes(),
             action: "disliked",
         };
     }
 
     if (LikesCache.has(userid as string)) {
         return {
-            count: LikesCache.size,
+            count: getLikes(),
             action: null,
         };
     }
 
     if (userid) {
-        LikesCache.set(userid, {
-            time: new Date(),
-        });
+        addLike(userid);
 
         return {
-            count: LikesCache.size,
+            count: getLikes(),
             action: "liked",
         };
     }
@@ -69,12 +88,10 @@ export async function Like({
         httpOnly: false,
     });
 
-    LikesCache.set(generatedUserId, {
-        time: new Date(),
-    });
+    addLike(generatedUserId);
 
     return {
-        count: LikesCache.size,
+        count: getLikes(),
         action: "liked",
     };
 }

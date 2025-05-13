@@ -1,5 +1,6 @@
 import QuickLRU from "quick-lru";
 import { getTimeDifference } from "@/utils/getTimeDifference";
+import { LikesQuantityCacheKey } from "@/constants/app";
 
 // ik that a redis server would be better than this cache,
 // but it's not possible to host it on vercel,
@@ -18,3 +19,8 @@ export const LikesCache = new QuickLRU<string, {
     // only the total rows count
     maxSize: Math.pow(2, 24) - 1,
 });
+export const LikeEntriesCache = new QuickLRU<string, number>({
+    maxSize: 1,
+});
+
+LikeEntriesCache.set(LikesQuantityCacheKey, 0);

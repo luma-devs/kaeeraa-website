@@ -1,12 +1,10 @@
-import LikeButton from "@/components/LikeButton/LikeButton";
-import { LikesCache } from "@/lib/cache";
+import FetchLikes from "@/components/FetchLikes/FetchLikes";
+
 
 export default function Home() {
-    const likes = LikesCache.size;
-
     return (
         <>
-            <LikeButton likes={likes} />
+            <FetchLikes />
         </>
     );
 }
