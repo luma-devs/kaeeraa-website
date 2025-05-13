@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "concurrently --raw \"bun lint:eslint\" \"bun lint:ts\"",
+    "lint:eslint": "next lint",
+    "lint:ts": "tsc",
+    "push": "bunx drizzle-kit push"
   },
   "dependencies": {
     "@formatjs/intl-localematcher": "^0.6.1",
@@ -28,6 +31,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^9.1.2",
     "drizzle-kit": "^0.31.1",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
