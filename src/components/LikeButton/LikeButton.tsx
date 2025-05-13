@@ -17,20 +17,21 @@ export default function LikeButton({
     });
 
     async function handleClick(action: "like" | "dislike") {
-        const likeAction = await Like({ action });
+        const { action: status, count } = await Like({ action });
 
-        if (likeAction === null) {
-            setLikesData((state) => {
-                return {
-                    ...state,
-                    action: "nah mate, you already did that",
-                };
+        if (status === null) {
+            setLikesData({
+                action: "nah mate, you already did that",
+                count,
             });
 
             return;
         }
 
-        setLikesData(likeAction);
+        setLikesData({
+            action: status,
+            count,
+        });
 
         return;
     }

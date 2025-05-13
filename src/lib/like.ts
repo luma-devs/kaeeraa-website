@@ -13,20 +13,26 @@ export async function Like({
     action: "like" | "dislike";
 }): Promise<{
     count: number;
-    action: "liked" | "disliked";
-} | null> {
+    action: "liked" | "disliked" | null;
+}> {
     const cookieStore = await cookies();
     const userid = cookieStore.get(UserIDCookieKey)?.value;
 
     if (action === "dislike") {
         if (!userid) {
-            return null;
+            return {
+                count: LikesCache.size,
+                action: null,
+            };
         }
 
         const disliked = LikesCache.delete(userid);
 
         if (!disliked) {
-            return null;
+            return {
+                count: LikesCache.size,
+                action: null,
+            };
         }
 
         return {
@@ -36,7 +42,10 @@ export async function Like({
     }
 
     if (LikesCache.has(userid as string)) {
-        return null;
+        return {
+            count: LikesCache.size,
+            action: null,
+        };
     }
 
     if (userid) {
