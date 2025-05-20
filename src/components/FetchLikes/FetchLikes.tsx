@@ -6,9 +6,9 @@ import { cookies } from "next/headers";
 
 export default async function FetchLikes() {
     const cookieStore = await cookies();
-    const hasLiked = cookieStore.get(HasLikedKey)?.value === "liked"
-        ? "liked"
-        : null;
+    const hasLiked = cookieStore.get(HasLikedKey)?.value === undefined
+        ? null
+        : "liked";
 
     let likes = LikesCountCache.get(LikesQuantityCacheKey);
 

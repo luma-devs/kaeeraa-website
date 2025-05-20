@@ -6,9 +6,17 @@ import { setCookie } from "@/lib/cookies";
 import { getRelativeDate } from "@/utils/getRelativeDate";
 import { HasLikedKey, LikesQuantityCacheKey, UserIDCookieKey } from "@/constants/app";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
+import { LikesCountCache } from "@/lib/cache";
+import redis from "@/lib/redis";
 
-async function getLikes(): number {
-    return LikeEntriesCache.get(LikesQuantityCacheKey) ?? 0;
+async function getLikes(): Promise<number> {
+    const cachedLikes = LikesCountCache.get(LikesQuantityCacheKey);
+
+    if (!cachedLikes) {
+        return redis.dbsize();
+    }
+
+    return cachedLikes;
 }
 
 async function addLike({
@@ -17,11 +25,14 @@ async function addLike({
 }: {
     userid: string;
     cookieStore: ReadonlyRequestCookies;
-}): void {
-    LikeEntriesCache.set(LikesQuantityCacheKey, getLikes() + 1);
-    LikesCache.set(userid, {
-        time: new Date(),
-    });
+}): Promise<void | Error> {
+    try {
+        await redis.set(userid, 1);
+    } catch (error) {
+        console.error("Error while adding a like:", error);
+
+        throw new Error("Error while add a like.");
+    }
 
     await setCookie({
         store: cookieStore,
@@ -33,18 +44,26 @@ async function addLike({
     await setCookie({
         store: cookieStore,
         key: HasLikedKey,
-        value: userid,
+        value: "yeah bro",
         expiresAt: getRelativeDate({ days: 365 }),
         httpOnly: false,
     });
+
+    const likes = await getLikes();
+
+    LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
 }
 
-async function removeLike(userid: string): boolean {
+async function removeLike(userid: string): Promise<boolean> {
     const disliked = LikesCache.delete(userid);
 
     if (disliked) {
         LikeEntriesCache.set(LikesQuantityCacheKey, getLikes() - 1);
     }
+
+    const likes = await getLikes();
+
+    LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
 
     return disliked;
 }
@@ -63,7 +82,7 @@ export async function Like({
     if (action === "dislike") {
         if (!userid) {
             return {
-                count: getLikes(),
+                count: await getLikes(),
                 action: null,
             };
         }
@@ -72,20 +91,20 @@ export async function Like({
 
         if (!disliked) {
             return {
-                count: getLikes(),
+                count: await getLikes(),
                 action: null,
             };
         }
 
         return {
-            count: getLikes(),
+            count: await getLikes(),
             action: "disliked",
         };
     }
 
     if (LikesCache.has(userid as string)) {
         return {
-            count: getLikes(),
+            count: await getLikes(),
             action: null,
         };
     }
@@ -94,7 +113,7 @@ export async function Like({
         addLike(userid);
 
         return {
-            count: getLikes(),
+            count: await getLikes(),
             action: "liked",
         };
     }
@@ -104,7 +123,7 @@ export async function Like({
     addLike(generatedUserId);
 
     return {
-        count: getLikes(),
+        count: await getLikes(),
         action: "liked",
     };
 }
