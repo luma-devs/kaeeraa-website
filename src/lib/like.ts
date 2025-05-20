@@ -4,20 +4,42 @@ import { cookies } from 'next/headers';
 import { v4 as generateUUID } from "uuid";
 import { setCookie } from "@/lib/cookies";
 import { getRelativeDate } from "@/utils/getRelativeDate";
-import { LikesQuantityCacheKey, UserIDCookieKey } from "@/constants/app";
+import { HasLikedKey, LikesQuantityCacheKey, UserIDCookieKey } from "@/constants/app";
+import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
 
-function getLikes(): number {
+async function getLikes(): number {
     return LikeEntriesCache.get(LikesQuantityCacheKey) ?? 0;
 }
 
-function addLike(userid: string): void {
+async function addLike({
+    userid,
+    cookieStore,
+}: {
+    userid: string;
+    cookieStore: ReadonlyRequestCookies;
+}): void {
     LikeEntriesCache.set(LikesQuantityCacheKey, getLikes() + 1);
     LikesCache.set(userid, {
         time: new Date(),
     });
+
+    await setCookie({
+        store: cookieStore,
+        key: UserIDCookieKey,
+        value: userid,
+        expiresAt: getRelativeDate({ days: 365 }),
+        httpOnly: false,
+    });
+    await setCookie({
+        store: cookieStore,
+        key: HasLikedKey,
+        value: userid,
+        expiresAt: getRelativeDate({ days: 365 }),
+        httpOnly: false,
+    });
 }
 
-function removeLike(userid: string): boolean {
+async function removeLike(userid: string): boolean {
     const disliked = LikesCache.delete(userid);
 
     if (disliked) {
@@ -78,14 +100,6 @@ export async function Like({
     }
 
     const generatedUserId = generateUUID();
-
-    await setCookie({
-        store: cookieStore,
-        key: UserIDCookieKey,
-        value: generatedUserId,
-        expiresAt: getRelativeDate({ days: 365 }),
-        httpOnly: false,
-    });
 
     addLike(generatedUserId);
 

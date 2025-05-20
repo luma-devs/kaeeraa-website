@@ -5,15 +5,17 @@ import { Like } from "@/lib/like";
 
 export default function LikeButton({
     likes,
+    status,
 }: {
     likes: number;
+    status: "liked" | null;
 }) {
     const [likesData, setLikesData] = useState<{
         count: number;
         action: "liked" | "disliked" | "nah mate, you already did that" | null;
     }>({
         count: likes,
-        action: null,
+        action: status,
     });
 
     async function handleClick(action: "like" | "dislike") {
