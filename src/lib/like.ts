@@ -1,7 +1,6 @@
 "use server";
 
 import { cookies } from 'next/headers';
-import { LikesCache, LikeEntriesCache } from "@/lib/cache";
 import { v4 as generateUUID } from "uuid";
 import { setCookie } from "@/lib/cookies";
 import { getRelativeDate } from "@/utils/getRelativeDate";

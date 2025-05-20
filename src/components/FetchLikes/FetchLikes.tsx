@@ -1,32 +1,20 @@
-import { Suspense } from "react";
 import LikeButton from "@/components/LikeButton/LikeButton";
-import { LikeEntriesCache } from "@/lib/cache";
+import redis from "@/lib/redis";
+import { LikesCountCache } from "@/lib/cache";
 import { LikesQuantityCacheKey } from "@/constants/app";
-import database from "@/db";
-import { likesTable } from "@/db/schema";
 
 export default async function FetchLikes() {
-    const cachedLikes = LikeEntriesCache.get(LikesQuantityCacheKey) ?? 0;
-    let likes = cachedLikes;
+    let likes = LikesCountCache.get(LikesQuantityCacheKey);
 
-    if (cachedLikes === 0) {
-        try {
-            const totalRows = await database.$count(likesTable);
+    if (likes === undefined) {
+        likes = await redis.dbsize();
 
-            LikeEntriesCache.set(LikesQuantityCacheKey, totalRows);
-            likes = totalRows;
-        } catch (error) {
-            console.log(error);
-        }
+        LikesCountCache.set(LikesQuantityCacheKey, likes);
     }
 
     return (
         <>
-            <Suspense fallback={
-                <>Loading...</>
-            }>
-                <LikeButton likes={likes} />
-            </Suspense>
+            <LikeButton likes={likes} />
         </>
     );
 }

@@ -1,10 +1,14 @@
 import FetchLikes from "@/components/FetchLikes/FetchLikes";
-
+import { Suspense } from "react";
 
 export default function Home() {
     return (
         <>
-            <FetchLikes />
+            <Suspense fallback={
+                <>Loading...</>
+            }>
+                <FetchLikes />
+            </Suspense>
         </>
     );
 }
