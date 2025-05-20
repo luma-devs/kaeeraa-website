@@ -4,6 +4,7 @@ import "./globals.css";
 import { getDictionary } from "@/get-dictionary";
 import { i18n, Locale } from "@/i18n-config";
 import { Kaeeraa } from "@/constants/app";
+import { DictionariesProvider } from "@/utils/DictionariesProvider";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -55,7 +56,9 @@ export default async function RootLayout({
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                {children}
+                <DictionariesProvider dictionaries={dictionaries}>
+                    {children}
+                </DictionariesProvider>
             </body>
         </html>
     );

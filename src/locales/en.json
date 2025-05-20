@@ -1,5 +1,13 @@
 {
   "metadata": {
     "description": "\"May your code be clean and your systems stable!\" ✨"
+  },
+  "components": {
+    "likeButton": {
+      "likesSingle": "like",
+      "likesFew": "likes",
+      "likesMany": "likes",
+      "error": "bwaaa, an error..."
+    }
   }
 }
