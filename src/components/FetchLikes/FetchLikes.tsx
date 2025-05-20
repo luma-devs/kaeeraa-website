@@ -13,7 +13,11 @@ export default async function FetchLikes() {
     let likes = LikesCountCache.get(LikesQuantityCacheKey);
 
     if (likes === undefined) {
-        likes = await redis.dbsize();
+        try {
+            likes = await redis.dbsize();
+        } catch {
+            likes = 0;
+        }
 
         LikesCountCache.set(LikesQuantityCacheKey, likes);
     }
@@ -22,7 +26,7 @@ export default async function FetchLikes() {
         <>
             <LikeButton
                 likes={likes}
-                status={hasLiked}
+                initialStatus={hasLiked}
             />
         </>
     );

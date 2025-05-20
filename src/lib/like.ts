@@ -9,11 +9,19 @@ import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adap
 import { LikesCountCache } from "@/lib/cache";
 import redis from "@/lib/redis";
 
-async function getLikes(): Promise<number> {
+async function getLikes(): Promise<number | null> {
     const cachedLikes = LikesCountCache.get(LikesQuantityCacheKey);
 
     if (!cachedLikes) {
-        const currentCount = await redis.dbsize();
+        let currentCount: number;
+
+        try {
+            currentCount =  await redis.dbsize();
+        } catch (error) {
+            console.error("Error while fetching total rows on the redis server:", error);
+
+            return null;
+        }
 
         LikesCountCache.set(LikesQuantityCacheKey, currentCount);
 
@@ -29,15 +37,19 @@ async function addLike({
 }: {
     userid: string;
     cookieStore: ReadonlyRequestCookies;
-}): Promise<void | Error> {
+}): Promise<void | null> {
     const likes = await getLikes();
+
+    if (likes === null) {
+        return null;
+    }
 
     try {
         await redis.set(userid, 1);
     } catch (error) {
         console.error("Error while adding a like:", error);
 
-        throw new Error("Error while add a like.");
+        return null;
     }
 
     await setCookie({
@@ -58,9 +70,22 @@ async function addLike({
     LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
 }
 
-async function removeLike(userid: string): Promise<boolean> {
+async function removeLike(userid: string): Promise<boolean | null> {
     const likes = await getLikes();
-    const disliked = await redis.del(userid);
+
+    if (likes === null) {
+        return null;
+    }
+
+    let disliked: number;
+
+    try {
+        disliked = await redis.del(userid);
+    } catch (error) {
+        console.error("Error while removing a like:", error);
+
+        return null;
+    }
 
     if (disliked === 1) {
         LikesCountCache.set(LikesQuantityCacheKey, likes - 1);
@@ -69,12 +94,17 @@ async function removeLike(userid: string): Promise<boolean> {
     return Boolean(disliked);
 }
 
+const errorResponse = {
+    count: null,
+    action: null,
+};
+
 export async function Like({
     action,
 }: {
     action: "like" | "dislike";
 }): Promise<{
-    count: number;
+    count: number | null;
     action: "liked" | "disliked" | null;
 }> {
     const cookieStore = await cookies();
@@ -90,11 +120,8 @@ export async function Like({
 
         const disliked = await removeLike(userid);
 
-        if (!disliked) {
-            return {
-                count: await getLikes(),
-                action: null,
-            };
+        if (disliked === null) {
+            return errorResponse;
         }
 
         return {
@@ -103,18 +130,32 @@ export async function Like({
         };
     }
 
-    if (await redis.exists(userid as string)) {
+    let userExists: number;
+
+    try {
+        userExists = await redis.exists(userid as string);
+    } catch (error) {
+        console.error("Error while checking if user exists:", error);
+
+        return errorResponse;
+    }
+
+    if (userExists) {
         return {
             count: await getLikes(),
-            action: null,
+            action: "liked",
         };
     }
 
     if (userid) {
-        await addLike({
+        const liked = await addLike({
             userid,
             cookieStore,
         });
+
+        if (liked === null) {
+            return errorResponse;
+        }
 
         return {
             count: await getLikes(),
@@ -124,10 +165,14 @@ export async function Like({
 
     const generatedUserId = generateUUID();
 
-    await addLike({
+    const liked = await addLike({
         userid: generatedUserId,
         cookieStore,
     });
+
+    if (liked === null) {
+        return errorResponse;
+    }
 
     return {
         count: await getLikes(),
