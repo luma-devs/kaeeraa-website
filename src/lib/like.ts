@@ -13,7 +13,11 @@ async function getLikes(): Promise<number> {
     const cachedLikes = LikesCountCache.get(LikesQuantityCacheKey);
 
     if (!cachedLikes) {
-        return redis.dbsize();
+        const currentCount = await redis.dbsize();
+
+        LikesCountCache.set(LikesQuantityCacheKey, currentCount);
+
+        return currentCount;
     }
 
     return cachedLikes;
@@ -26,6 +30,8 @@ async function addLike({
     userid: string;
     cookieStore: ReadonlyRequestCookies;
 }): Promise<void | Error> {
+    const likes = await getLikes();
+
     try {
         await redis.set(userid, 1);
     } catch (error) {
@@ -49,23 +55,18 @@ async function addLike({
         httpOnly: false,
     });
 
-    const likes = await getLikes();
-
     LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
 }
 
 async function removeLike(userid: string): Promise<boolean> {
-    const disliked = LikesCache.delete(userid);
+    const likes = await getLikes();
+    const disliked = await redis.del(userid);
 
-    if (disliked) {
-        LikeEntriesCache.set(LikesQuantityCacheKey, getLikes() - 1);
+    if (disliked === 1) {
+        LikesCountCache.set(LikesQuantityCacheKey, likes - 1);
     }
 
-    const likes = await getLikes();
-
-    LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
-
-    return disliked;
+    return Boolean(disliked);
 }
 
 export async function Like({
@@ -87,7 +88,7 @@ export async function Like({
             };
         }
 
-        const disliked = removeLike(userid);
+        const disliked = await removeLike(userid);
 
         if (!disliked) {
             return {
@@ -102,7 +103,7 @@ export async function Like({
         };
     }
 
-    if (LikesCache.has(userid as string)) {
+    if (await redis.exists(userid as string)) {
         return {
             count: await getLikes(),
             action: null,
@@ -110,7 +111,10 @@ export async function Like({
     }
 
     if (userid) {
-        addLike(userid);
+        await addLike({
+            userid,
+            cookieStore,
+        });
 
         return {
             count: await getLikes(),
@@ -120,7 +124,10 @@ export async function Like({
 
     const generatedUserId = generateUUID();
 
-    addLike(generatedUserId);
+    await addLike({
+        userid: generatedUserId,
+        cookieStore,
+    });
 
     return {
         count: await getLikes(),
