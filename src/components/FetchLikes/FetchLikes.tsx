@@ -10,16 +10,16 @@ export default async function FetchLikes() {
         ? null
         : "liked";
 
-    let likes = LikesCountCache.get(LikesQuantityCacheKey);
+    let likes: number | null | undefined = LikesCountCache.get(LikesQuantityCacheKey);
 
     if (likes === undefined) {
         try {
             likes = await redis.dbsize();
         } catch {
-            likes = 0;
+            likes = null;
         }
 
-        LikesCountCache.set(LikesQuantityCacheKey, likes);
+        LikesCountCache.set(LikesQuantityCacheKey, likes ?? 0);
     }
 
     return (

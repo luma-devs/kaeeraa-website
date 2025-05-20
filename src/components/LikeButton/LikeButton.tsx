@@ -16,7 +16,7 @@ export default function LikeButton({
     likes,
     initialStatus,
 }: {
-    likes: number;
+    likes: number | null;
     initialStatus: "liked" | null;
 }) {
     const { dictionaries } = useContext(DictionariesContext);
@@ -78,7 +78,7 @@ export default function LikeButton({
 
     return (
         <div className="flex flex-nowrap gap-2">
-            <div className="flex bg-black h-9 p-2 leading-none justify-center items-center border border-neutral-800 rounded-md">
+            <div className="flex bg-neutral-950 h-9 p-2 leading-none justify-center items-center border border-neutral-800 rounded-md">
                 {
                     likesData.count === null
                         ? dictionaries?.components?.likeButton?.error
