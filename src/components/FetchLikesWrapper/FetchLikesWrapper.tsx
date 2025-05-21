@@ -29,14 +29,18 @@ export default function FetchLikesWrapper({
     return (
         <>
             <Suspense fallback={
-                <div className="flex flex-nowrap gap-2">
-                    <div className="flex bg-neutral-900 h-9 p-2 leading-none justify-center items-center border border-neutral-800 rounded-md animate-pulse">
-                        {cachedLikes ?? "?"} {likesWord}
-                    </div>
-                    <div className="flex bg-neutral-800 h-9 p-2 leading-none justify-center items-center border border-neutral-600 rounded-md cursor-not-allowed animate-pulse">
+                <>
+                    <div
+                        className="flex bg-neutral-800 px-2 py-1 justify-center items-center border border-neutral-600 rounded-md cursor-not-allowed animate-pulse gap-2"
+                        aria-label={`${cachedLikes ?? "?"} ${likesWord}`}
+                        title={`${cachedLikes ?? "?"} ${likesWord}`}
+                    >
                         <Heart className="shrink-0" size={18} />
+                        <div>
+                            {cachedLikes ?? "?"}
+                        </div>
                     </div>
-                </div>
+                </>
             }>
                 <FetchLikes />
             </Suspense>

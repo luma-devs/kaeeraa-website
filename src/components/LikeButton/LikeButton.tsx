@@ -77,21 +77,23 @@ export default function LikeButton({
     }
 
     return (
-        <div className="flex flex-nowrap gap-2">
-            <div className="flex bg-neutral-900 h-9 p-2 leading-none justify-center items-center border border-neutral-800 rounded-md">
-                {
-                    likesData.count === null
-                        ? dictionaries?.components?.likeButton?.error
-                        : `${likesData.count} ${likesWord}`
-                }
-            </div>
+        <>
             <button
-                className={`border ${status === "liked" ? likedClassNames : defaultClassNames} w-9 h-9 p-2 rounded-md flex items-center transition cursor-pointer active:opacity-60 active:cursor-default disabled:opacity-60 disabled:cursor-default`}
+                className={`border ${status === "liked" ? likedClassNames : defaultClassNames} px-2 py-1 rounded-md flex items-center transition cursor-pointer active:opacity-60 active:cursor-default disabled:opacity-60 disabled:cursor-default gap-2`}
                 onClick={() => handleClick(status)}
                 disabled={isLoading}
+                aria-label={`${likesData.count ?? "?"} ${likesWord}`}
+                title={`${likesData.count ?? "?"} ${likesWord}`}
             >
                 <Heart className="shrink-0" size={18} />
+                <div>
+                    {
+                        likesData.count === null
+                            ? dictionaries?.components?.likeButton?.error
+                            : likesData.count
+                    }
+                </div>
             </button>
-        </div>
+        </>
     );
 }
