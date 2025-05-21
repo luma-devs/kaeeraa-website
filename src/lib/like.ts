@@ -133,7 +133,7 @@ export async function Like({
     let userExists: number;
 
     try {
-        userExists = await redis.exists(userid as string);
+        userExists = await redis.exists(userid ?? "");
     } catch (error) {
         console.error("Error while checking if user exists:", error);
 
