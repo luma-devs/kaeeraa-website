@@ -8,6 +8,14 @@
       "likesFew": "лайка",
       "likesMany": "лайков",
       "error": "bwaaa, ошибка..."
+    },
+    "hero": {
+      "title": "ky",
+      "description": "sosi",
+      "about-work": "what",
+      "about-code-style": "nix победа",
+      "about-nixos": "uwu",
+      "about-free-time": "owo"
     }
   }
 }

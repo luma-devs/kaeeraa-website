@@ -3,7 +3,8 @@ import LocaleSwitcher from "@/components/LocaleSwitcher/LocaleSwitcher";
 import Favicon from "@/../public/favicon.webp";
 import { Locale } from "@/i18n-config";
 import ConfiguredImage from "@/components/ConfiguredImage/ConfiguredImage";
-import { AboutMe, ProgrammingLanguages } from "@/constants/app";
+import { AboutMe, ProgrammingLanguages } from "@/constants/localization";
+import Translate from "@/components/Translate/Translate";
 
 export default function Hero({
     lang,
@@ -22,10 +23,10 @@ export default function Hero({
                         />
                         <div className="flex flex-col gap-2 justify-center">
                             <p className="font-medium leading-none text-lg">
-                                Hi! I&#39;m Kaeeraa
+                                <Translate property={"title"} />
                             </p>
                             <p className="text-neutral-400 leading-none">
-                                Problem-solver at heart, passionate about Linux (NixOS) and open-source apps.
+                                <Translate property={"description"} />
                             </p>
                             <div className="flex gap-2">
                                 {
@@ -53,7 +54,7 @@ export default function Hero({
                                                 ✦
                                             </p>
                                             <p className="leading-none text-pretty text-neutral-400">
-                                                {about}
+                                                <Translate property={about} />
                                             </p>
                                         </div>
                                     );

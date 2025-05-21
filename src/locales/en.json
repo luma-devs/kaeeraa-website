@@ -8,6 +8,14 @@
       "likesFew": "likes",
       "likesMany": "likes",
       "error": "bwaaa, an error..."
+    },
+    "hero": {
+      "title": "Hi! I'm Kaeeraa",
+      "description": "Problem-solver at heart, passionate about Linux (NixOS) and open-source apps.",
+      "about-work": "I work as a programmer and love writing clean, readable code",
+      "about-code-style": "No snake_case! Only kebab-case, PascalCase and camelCase",
+      "about-nixos": "A dedicated NixOS user — I value minimalism, stability, and control",
+      "about-free-time": "In my free time, I work on personal projects like FreesmLauncher or Kaede"
     }
   }
 }
