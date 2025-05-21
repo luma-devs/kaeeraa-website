@@ -1,7 +1,8 @@
 import LikeButton from "@/components/LikeButton/LikeButton";
 import redis from "@/lib/redis";
-import { HasLikedKey } from "@/constants/app";
+import { HasLikedKey, LikesQuantityCacheKey } from "@/constants/app";
 import { cookies } from "next/headers";
+import { LikesCountCache } from "@/lib/cache";
 
 export default async function FetchLikes() {
     const cookieStore = await cookies();
@@ -16,6 +17,8 @@ export default async function FetchLikes() {
     } catch {
         likes = null;
     }
+
+    LikesCountCache.set(LikesQuantityCacheKey, likes ?? 0);
 
     return (
         <>

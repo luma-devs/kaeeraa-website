@@ -2,8 +2,13 @@ import FetchLikesWrapper from "@/components/FetchLikesWrapper/FetchLikesWrapper"
 import LocaleSwitcher from "@/components/LocaleSwitcher/LocaleSwitcher";
 import Image from "next/image";
 import Favicon from "@/../public/favicon.webp";
+import { Locale } from "@/i18n-config";
 
-export default function Hero() {
+export default function Hero({
+    lang,
+}: {
+    lang: Locale;
+}) {
     return (
         <>
             <div className="p-4 w-full h-fit max-w-224 mx-auto flex gap-2 flex-col md:flex-row">
@@ -20,7 +25,7 @@ export default function Hero() {
                 <div className="p-2 rounded-md flex flex-col flex-3/5 border border-neutral-800 bg-neutral-950 h-full">
                     <div className="flex">
                         <div>
-                            <FetchLikesWrapper />
+                            <FetchLikesWrapper lang={lang} />
                             <LocaleSwitcher />
                         </div>
                         <div></div>
