@@ -42,7 +42,6 @@
 /* initial colors */
 /* color scheme is being stored in cookies */
 :root {
-  --background: var(--color-black);
   --foreground: var(--color-white);
 }
 
@@ -51,13 +50,7 @@
   --font-mono: var(--font-geist-mono);
 }
 
-html {
-  background: var(--background);
-}
-
 body {
-  height: 100svh;
-  background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }

@@ -57,7 +57,7 @@ export default async function RootLayout({
     return (
         <html lang={lang}>
             <body
-                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${geistSans.variable} ${geistMono.variable} grid place-items-center h-[100svh] bg-[#040404] antialiased`}
             >
                 <DictionariesProvider dictionaries={{
                     en: englishDictionaries,
