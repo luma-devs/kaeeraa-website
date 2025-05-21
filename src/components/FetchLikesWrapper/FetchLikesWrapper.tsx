@@ -31,7 +31,7 @@ export default function FetchLikesWrapper({
             <Suspense fallback={
                 <>
                     <div
-                        className="flex bg-neutral-800 px-2 py-1 justify-center items-center border border-neutral-600 rounded-md cursor-not-allowed animate-pulse gap-2"
+                        className="flex bg-neutral-800 px-2 py-1 justify-center items-center rounded-full cursor-not-allowed animate-pulse gap-2"
                         aria-label={`${cachedLikes ?? "?"} ${likesWord}`}
                         title={`${cachedLikes ?? "?"} ${likesWord}`}
                     >

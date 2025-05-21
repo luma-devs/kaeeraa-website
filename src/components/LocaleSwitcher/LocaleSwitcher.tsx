@@ -34,12 +34,12 @@ export default function LocaleSwitcher() {
 
     return (
         <button
-            className={"w-fit h-fit flex items-center gap-2 rounded-md px-2 py-1 cursor-pointer transition duration-200 active:opacity-60 active:cursor-default hover:brightness-105 dark:hover:brightness-125 bg-neutral-800 border border-neutral-600 hover:border-neutral-400"}
+            className={"w-fit h-fit flex items-center gap-2 rounded-full px-2 py-1 cursor-pointer transition duration-200 active:opacity-60 active:cursor-default hover:brightness-105 dark:hover:brightness-125 bg-neutral-800 hover:bg-neutral-700"}
             onClick={handleLocaleSwitch}
             aria-label={`Select ${name}`}
             title={`Select ${name}`}
         >
-            <div className="fill-black dark:fill-white leading-none drop-shadow-xs drop-shadow-[#0005]">
+            <div className="fill-black dark:fill-white drop-shadow-xs drop-shadow-[#0005]">
                 {icon}
             </div>
             <p>

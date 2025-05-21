@@ -9,8 +9,8 @@ import { HasLikedKey } from "@/constants/app";
 import { DictionariesContext } from "@/utils/DictionariesProvider";
 import { makeWordEnding } from "@/utils/makeWordEnding";
 
-const likedClassNames = "bg-rose-950 border-rose-600";
-const defaultClassNames = "bg-neutral-800 border-neutral-600 hover:border-neutral-400 disabled:border-neutral-600";
+const likedClassNames = "bg-rose-950 text-rose-500";
+const defaultClassNames = "bg-neutral-800 hover:bg-neutral-700";
 
 export default function LikeButton({
     likes,
@@ -79,7 +79,7 @@ export default function LikeButton({
     return (
         <>
             <button
-                className={`border ${status === "liked" ? likedClassNames : defaultClassNames} px-2 py-1 rounded-md flex items-center transition cursor-pointer active:opacity-60 active:cursor-default disabled:opacity-60 disabled:cursor-default gap-2`}
+                className={`${status === "liked" ? likedClassNames : defaultClassNames} px-2 py-1 rounded-full flex items-center transition cursor-pointer active:opacity-60 active:cursor-default disabled:opacity-60 disabled:cursor-default gap-2`}
                 onClick={() => handleClick(status)}
                 disabled={isLoading}
                 aria-label={`${likesData.count ?? "?"} ${likesWord}`}
