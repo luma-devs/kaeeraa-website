@@ -1,7 +1,6 @@
 import LikeButton from "@/components/LikeButton/LikeButton";
 import redis from "@/lib/redis";
-import { LikesCountCache } from "@/lib/cache";
-import { HasLikedKey, LikesQuantityCacheKey } from "@/constants/app";
+import { HasLikedKey } from "@/constants/app";
 import { cookies } from "next/headers";
 
 export default async function FetchLikes() {
@@ -10,16 +9,12 @@ export default async function FetchLikes() {
         ? null
         : "liked";
 
-    let likes: number | null | undefined = LikesCountCache.get(LikesQuantityCacheKey);
+    let likes: number | null | undefined;
 
-    if (likes === undefined) {
-        try {
-            likes = await redis.dbsize();
-        } catch {
-            likes = null;
-        }
-
-        LikesCountCache.set(LikesQuantityCacheKey, likes ?? 0);
+    try {
+        likes = await redis.dbsize();
+    } catch {
+        likes = null;
     }
 
     return (

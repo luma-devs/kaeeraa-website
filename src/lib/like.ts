@@ -4,31 +4,22 @@ import { cookies } from 'next/headers';
 import { v4 as generateUUID } from "uuid";
 import { setCookie } from "@/lib/cookies";
 import { getRelativeDate } from "@/utils/getRelativeDate";
-import { HasLikedKey, LikesQuantityCacheKey, UserIDCookieKey } from "@/constants/app";
+import { HasLikedKey, UserIDCookieKey } from "@/constants/app";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { LikesCountCache } from "@/lib/cache";
 import redis from "@/lib/redis";
 
 async function getLikes(): Promise<number | null> {
-    const cachedLikes = LikesCountCache.get(LikesQuantityCacheKey);
+    let likes: number;
 
-    if (cachedLikes === undefined) {
-        let currentCount: number;
+    try {
+        likes =  await redis.dbsize();
+    } catch (error) {
+        console.error("Error while fetching total rows on the redis server:", error);
 
-        try {
-            currentCount =  await redis.dbsize();
-        } catch (error) {
-            console.error("Error while fetching total rows on the redis server:", error);
-
-            return null;
-        }
-
-        LikesCountCache.set(LikesQuantityCacheKey, currentCount);
-
-        return currentCount;
+        return null;
     }
 
-    return cachedLikes;
+    return likes;
 }
 
 async function addLike({
@@ -38,16 +29,8 @@ async function addLike({
     userid: string;
     cookieStore: ReadonlyRequestCookies;
 }): Promise<void | null> {
-    const likes = await getLikes();
-
-    if (likes === null) {
-        return null;
-    }
-
-    let liked: number;
-
     try {
-        liked = await redis.setnx(userid, 1);
+        await redis.setnx(userid, 1);
     } catch (error) {
         console.error("Error while adding a like:", error);
 
@@ -68,34 +51,16 @@ async function addLike({
         expiresAt: getRelativeDate({ days: 365 }),
         httpOnly: false,
     });
-
-    if (liked === 1) {
-        LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
-    }
 }
 
-async function removeLike(userid: string): Promise<boolean | null> {
-    const likes = await getLikes();
-
-    if (likes === null) {
-        return null;
-    }
-
-    let disliked: number;
-
+async function removeLike(userid: string): Promise<void | null> {
     try {
-        disliked = await redis.del(userid);
+        await redis.del(userid);
     } catch (error) {
         console.error("Error while removing a like:", error);
 
         return null;
     }
-
-    if (disliked === 1) {
-        LikesCountCache.set(LikesQuantityCacheKey, likes - 1);
-    }
-
-    return Boolean(disliked);
 }
 
 const errorResponse = {
