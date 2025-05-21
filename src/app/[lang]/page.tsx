@@ -1,11 +1,9 @@
-import FetchLikesWrapper from "@/components/FetchLikesWrapper/FetchLikesWrapper";
-import LocaleSwitcher from "@/components/LocaleSwitcher/LocaleSwitcher";
+import Hero from "@/components/Hero/Hero";
 
 export default function Home() {
     return (
         <>
-            <FetchLikesWrapper />
-            <LocaleSwitcher />
+            <Hero />
         </>
     );
 }

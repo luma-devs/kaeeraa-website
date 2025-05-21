@@ -12,7 +12,7 @@ import redis from "@/lib/redis";
 async function getLikes(): Promise<number | null> {
     const cachedLikes = LikesCountCache.get(LikesQuantityCacheKey);
 
-    if (!cachedLikes) {
+    if (cachedLikes === undefined) {
         let currentCount: number;
 
         try {
@@ -44,8 +44,10 @@ async function addLike({
         return null;
     }
 
+    let liked: number;
+
     try {
-        await redis.set(userid, 1);
+        liked = await redis.setnx(userid, 1);
     } catch (error) {
         console.error("Error while adding a like:", error);
 
@@ -67,7 +69,9 @@ async function addLike({
         httpOnly: false,
     });
 
-    LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
+    if (liked === 1) {
+        LikesCountCache.set(LikesQuantityCacheKey, likes + 1);
+    }
 }
 
 async function removeLike(userid: string): Promise<boolean | null> {
@@ -127,23 +131,6 @@ export async function Like({
         return {
             count: await getLikes(),
             action: "disliked",
-        };
-    }
-
-    let userExists: number;
-
-    try {
-        userExists = await redis.exists(userid ?? "");
-    } catch (error) {
-        console.error("Error while checking if user exists:", error);
-
-        return errorResponse;
-    }
-
-    if (userExists) {
-        return {
-            count: await getLikes(),
-            action: "liked",
         };
     }
 
