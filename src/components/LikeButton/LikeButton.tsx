@@ -78,7 +78,7 @@ export default function LikeButton({
 
     return (
         <div className="flex flex-nowrap gap-2">
-            <div className="flex bg-neutral-950 h-9 p-2 leading-none justify-center items-center border border-neutral-800 rounded-md">
+            <div className="flex bg-neutral-900 h-9 p-2 leading-none justify-center items-center border border-neutral-800 rounded-md">
                 {
                     likesData.count === null
                         ? dictionaries?.components?.likeButton?.error
@@ -86,7 +86,7 @@ export default function LikeButton({
                 }
             </div>
             <button
-                className={`border ${status === "liked" ? likedClassNames : defaultClassNames} w-9 h-9 p-2 rounded-md flex items-center transition cursor-pointer disabled:opacity-60 disabled:cursor-default`}
+                className={`border ${status === "liked" ? likedClassNames : defaultClassNames} w-9 h-9 p-2 rounded-md flex items-center transition cursor-pointer active:opacity-60 active:cursor-default disabled:opacity-60 disabled:cursor-default`}
                 onClick={() => handleClick(status)}
                 disabled={isLoading}
             >
