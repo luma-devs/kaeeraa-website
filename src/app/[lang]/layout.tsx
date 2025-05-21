@@ -5,6 +5,7 @@ import { getDictionary } from "@/get-dictionary";
 import { i18n, Locale } from "@/i18n-config";
 import { Kaeeraa } from "@/constants/app";
 import { DictionariesProvider } from "@/utils/DictionariesProvider";
+import { DefaultLocale } from "@/constants/localization";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -49,14 +50,19 @@ export default async function RootLayout({
     params: Promise<{ lang: Locale }>;
 }>) {
     const { lang } = await params;
-    const dictionaries = await getDictionary(lang);
+    const currentLang: Locale = lang === "ru" ? "ru" : DefaultLocale;
+    const englishDictionaries = await getDictionary("en");
+    const russianDictionaries = await getDictionary("ru");
 
     return (
         <html lang={lang}>
             <body
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <DictionariesProvider dictionaries={dictionaries}>
+                <DictionariesProvider dictionaries={{
+                    en: englishDictionaries,
+                    ru: russianDictionaries,
+                }} lang={currentLang}>
                     {children}
                 </DictionariesProvider>
             </body>
