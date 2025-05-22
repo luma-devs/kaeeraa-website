@@ -15,13 +15,13 @@ export default function Hero({
         <>
             <div className="p-8 w-full h-fit max-w-324 flex flex-wrap gap-4 flex-col lg:flex-row">
                 <div className="flex-1 flex flex-col gap-4 p-8 rounded-3xl lg:rounded-l-3xl lg:rounded-r-lg bg-neutral-950">
-                    <div className="flex gap-4">
+                    <div className="flex flex-wrap sm:flex-nowrap gap-4">
                         <ConfiguredImage
                             src={Favicon}
                             alt="Kaeeraa's profile picture"
-                            className="h-24 w-24 object-cover shrink-0 box-content rounded-full p-0.5 [background:linear-gradient(45deg,theme(colors.neutral.900))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.neutral.600/.48)_60%,_theme(colors.neutral.300)_72%,_theme(colors.neutral.100)_80%,_theme(colors.neutral.300)_88%,_theme(colors.neutral.600/.48))_border-box] border-2 border-transparent animate-border transition"
+                            className="mx-auto h-24 w-24 object-cover shrink-0 box-content rounded-full p-0.5 [background:linear-gradient(45deg,theme(colors.neutral.900))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.neutral.600/.48)_60%,_theme(colors.neutral.300)_72%,_theme(colors.neutral.100)_80%,_theme(colors.neutral.300)_88%,_theme(colors.neutral.600/.48))_border-box] border-2 border-transparent animate-border transition"
                         />
-                        <div className="flex flex-col gap-2 justify-center">
+                        <div className="shrink-0 flex-1 flex flex-col gap-2 justify-center">
                             <p className="font-medium leading-none text-lg">
                                 <Translate property={"components.hero.title"} />
                             </p>
