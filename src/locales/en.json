@@ -6,7 +6,7 @@
   "components.like-button.likes-many": "likes",
   "components.like-button.error": "bwaaa, an error...",
   "components.hero.title": "Hi! I'm Kaeeraa",
-  "components.hero.description": "Problem-solver at heart, passionate about Linux (NixOS) and open-source apps.",
+  "components.hero.description": "Problem-solver at heart, passionate about Linux (NixOS) and open-source apps",
   "components.hero.about.work": "I work as a programmer and love writing clean, readable code",
   "components.hero.about.code-style": "No snake_case! Only kebab-case, PascalCase and camelCase",
   "components.hero.about.nixos": "A dedicated NixOS user — I value minimalism, stability, and control",
