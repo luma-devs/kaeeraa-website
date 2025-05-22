@@ -3,7 +3,7 @@ import { DictionariesType } from "@/types/Dictionaries/Dictionaries.type";
 
 export const CookieLocaleKey = "locale";
 export const DefaultLocale = "en";
-export const Locales: Array<"en" | "ru"> = ["en", "ru"];
+export const Locales: Array<"en" | "ru" | "uwu"> = ["en", "ru", "uwu"];
 export const LocaleItems: Record<Locale, {
     name: string;
     icon: string;
@@ -15,6 +15,10 @@ export const LocaleItems: Record<Locale, {
     ru: {
         name: "Русский",
         icon: "🇷🇺",
+    },
+    uwu: {
+        name: "UwU",
+        icon: "✧",
     },
 };
 export const ProgrammingLanguages: Array<string> = ["Python", "C++", "Go"];

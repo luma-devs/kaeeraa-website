@@ -1,5 +1,6 @@
 {
   "metadata.description": "\"May your code be clean and your systems stable!\" ✨",
+  "components.locale-switcher.select": "Выбрать язык:",
   "components.like-button.likes-single": "лайк",
   "components.like-button.likes-few": "лайка",
   "components.like-button.likes-many": "лайков",

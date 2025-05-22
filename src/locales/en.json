@@ -1,5 +1,6 @@
 {
   "metadata.description": "\"May your code be clean and your systems stable!\" ✨",
+  "components.locale-switcher.select": "Select the next language:",
   "components.like-button.likes-single": "like",
   "components.like-button.likes-few": "likes",
   "components.like-button.likes-many": "likes",

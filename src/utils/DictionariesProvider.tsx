@@ -24,12 +24,31 @@ export function DictionariesProvider({
     dictionaries: Record<Locale, DictionariesType>;
     lang: Locale;
 }) {
-    const { ru: russian, en: english } = dictionaries;
+    const { ru: russian, en: english, uwu } = dictionaries;
     const [currentLocale, setCurrentLocale] = useState<Locale>(lang);
+    let selectedDictionaries: DictionariesType;
+
+    switch (currentLocale) {
+        case "en": {
+            selectedDictionaries = english;
+
+            break;
+        }
+        case "ru": {
+            selectedDictionaries = russian;
+
+            break;
+        }
+        case "uwu": {
+            selectedDictionaries = uwu;
+
+            break;
+        }
+    }
 
     return (
         <DictionariesContext.Provider value={{
-            dictionaries: currentLocale === "ru" ? russian : english,
+            dictionaries: selectedDictionaries,
             currentLocale,
             setCurrentLocale,
         }}>

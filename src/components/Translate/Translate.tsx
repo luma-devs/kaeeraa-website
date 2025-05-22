@@ -11,9 +11,5 @@ export default function Translate({
 }) {
     const { dictionaries } = useContext(DictionariesContext);
 
-    return (
-        <>
-            {dictionaries?.[property]}
-        </>
-    );
+    return dictionaries?.[property];
 }

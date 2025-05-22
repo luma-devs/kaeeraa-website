@@ -53,6 +53,7 @@ export default async function RootLayout({
     const currentLang: Locale = lang === "ru" ? "ru" : DefaultLocale;
     const englishDictionaries = await getDictionary("en");
     const russianDictionaries = await getDictionary("ru");
+    const uwuDictionaries = await getDictionary("uwu");
 
     return (
         <html lang={lang}>
@@ -62,6 +63,7 @@ export default async function RootLayout({
                 <DictionariesProvider dictionaries={{
                     en: englishDictionaries,
                     ru: russianDictionaries,
+                    uwu: uwuDictionaries,
                 }} lang={currentLang}>
                     {children}
                 </DictionariesProvider>
