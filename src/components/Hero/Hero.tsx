@@ -3,7 +3,7 @@ import LocaleSwitcher from "@/components/LocaleSwitcher/LocaleSwitcher";
 import Favicon from "@/../public/favicon.webp";
 import { Locale } from "@/i18n-config";
 import ConfiguredImage from "@/components/ConfiguredImage/ConfiguredImage";
-import { AboutMe, ProgrammingLanguages, Socials } from "@/constants/misc";
+import { AboutMe, ProgrammingLanguages, Projects, Socials } from "@/constants/misc";
 import Translate from "@/components/Translate/Translate";
 import Link from "next/link";
 
@@ -23,7 +23,7 @@ export default function Hero({
                                 alt="Kaeeraa's profile picture"
                                 className="mx-auto h-24 w-24 object-cover shrink-0 box-content rounded-full p-0.5 [background:linear-gradient(45deg,theme(colors.neutral.900))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.neutral.600/.48)_60%,_theme(colors.neutral.300)_72%,_theme(colors.neutral.100)_80%,_theme(colors.neutral.300)_88%,_theme(colors.neutral.600/.48))_border-box] border-2 border-transparent animate-border transition"
                             />
-                            <div className="shrink-0 flex-1 flex flex-col gap-2 justify-center">
+                            <div className="min-w-[65%] shrink-0 flex-1 flex flex-col gap-2 justify-center">
                                 <p className="font-medium leading-none text-lg">
                                     <Translate property={"components.hero.title"} />
                                 </p>
@@ -71,11 +71,38 @@ export default function Hero({
                     </div>
                 </div>
                 <div className="flex-1 flex flex-col gap-4">
-                    <div className="p-8 h-full rounded-3xl lg:rounded-br-lg lg:rounded-l-lg bg-neutral-950">
+                    <div className="p-8 flex flex-col gap-4 h-full rounded-3xl lg:rounded-br-lg lg:rounded-l-lg bg-neutral-950">
                         <p className="font-medium text-lg">
                             <Translate property={"components.hero.projects.title"} />
                         </p>
-
+                        <div className="flex flex-wrap gap-4">
+                            {
+                                Projects.map((project) => {
+                                    return (
+                                        <Link
+                                            className="w-full flex flex-wrap sm:flex-nowrap gap-4 bg-neutral-900 p-2 rounded-lg"
+                                            key={project.name}
+                                            href={project.link}
+                                            target="_blank"
+                                        >
+                                            <ConfiguredImage
+                                                className="mx-auto aspect-square object-cover size-24 rounded-lg shrink-0"
+                                                src={project.image}
+                                                alt={`${project.name}'s banner`}
+                                            />
+                                            <div className="min-w-[60%] flex-1 flex flex-col justify-center gap-2 pr-2">
+                                                <p className="font-medium leading-none">
+                                                    <Translate property={project.name} />
+                                                </p>
+                                                <p className="text-sm text-neutral-400 leading-none">
+                                                    <Translate property={project.description} />
+                                                </p>
+                                            </div>
+                                        </Link>
+                                    );
+                                })
+                            }
+                        </div>
                     </div>
                     <div className="p-8 shrink-0 rounded-3xl lg:rounded-tr-lg lg:rounded-l-lg bg-neutral-950 flex flex-col gap-4">
                         <p className="font-medium text-lg">
