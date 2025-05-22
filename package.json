@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3001",
     "lint": "concurrently --raw \"bun lint:eslint\" \"bun lint:ts\"",
     "lint:eslint": "next lint",
     "lint:ts": "tsc"
