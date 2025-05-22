@@ -49,7 +49,7 @@ export const Socials: Array<{
     },
     {
         name: "components.hero.socials.telegram",
-        link: "https://t.me/devstdin",
+        link: "https://t.me/stdflush",
         icon: <TelegramIcon />,
     },
     {
