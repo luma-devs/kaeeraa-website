@@ -10,5 +10,7 @@
   "components.hero.about.work": "плюсы победа",
   "components.hero.about.code-style": "чапман код стайл",
   "components.hero.about.nixos": "нихос победа",
-  "components.hero.about.free-time": "каэда when"
+  "components.hero.about.free-time": "каэда when",
+  "components.hero.projects.title": "Мои проекты",
+  "components.hero.socials.title": "Контакты"
 }

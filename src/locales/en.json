@@ -10,5 +10,7 @@
   "components.hero.about.work": "I work as a programmer and love writing clean, readable code",
   "components.hero.about.code-style": "No snake_case! Only kebab-case, PascalCase and camelCase",
   "components.hero.about.nixos": "A dedicated NixOS user — I value minimalism, stability, and control",
-  "components.hero.about.free-time": "In my free time, I work on personal projects like FreesmLauncher or Kaede"
+  "components.hero.about.free-time": "In my free time, I work on personal projects like FreesmLauncher or Kaede",
+  "components.hero.projects.title": "My projects",
+  "components.hero.socials.title": "My socials"
 }
