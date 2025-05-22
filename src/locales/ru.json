@@ -18,5 +18,9 @@
   "components.hero.projects.matter.description": "A brand new discord bot with ticket system",
   "components.hero.projects.freesm-launcher.title": "Freesm Launcher",
   "components.hero.projects.freesm-launcher.description": "A modern launcher for modern minecraft. A Prism Launcher fork",
-  "components.hero.socials.title": "Контакты"
+  "components.hero.socials.title": "Контакты",
+  "components.hero.socials.github": "Github",
+  "components.hero.socials.telegram": "Telegram",
+  "components.hero.socials.steam": "Steam",
+  "components.hero.socials.discord": "Discord"
 }

@@ -12,11 +12,15 @@
   "components.hero.about.nixos": "a dedicated nixos u-user — i vawue minimawism, stabiwity, and contwow",
   "components.hero.about.free-time": "in my fwee time *:･ﾟ✧*:･ﾟ✧  i wowk o-on p-pewsonaw pwojects wike f-fweesmwaunchew o-ow kaede",
   "components.hero.projects.title": "my pwojects",
-  "components.hero.projects.ayu-gram.title": "AyuGram (NixOS packaged)",
-  "components.hero.projects.ayu-gram.description": "A Telegram Desktop client with TOS breaking features",
-  "components.hero.projects.matter.title": "Matter",
-  "components.hero.projects.matter.description": "A brand new discord bot with ticket system",
-  "components.hero.projects.freesm-launcher.title": "Freesm Launcher",
-  "components.hero.projects.freesm-launcher.description": "A modern launcher for modern minecraft. A Prism Launcher fork",
-  "components.hero.socials.title": "my s-sociaws"
+  "components.hero.projects.ayu-gram.title": "ayugwam (nixos packaged)",
+  "components.hero.projects.ayu-gram.description": "a tewegwam desktop cwient with tos b-bweaking features",
+  "components.hero.projects.matter.title": "matter",
+  "components.hero.projects.matter.description": "a b-bwand new discowd bot with ticket system",
+  "components.hero.projects.freesm-launcher.title": "fweesm waunchew",
+  "components.hero.projects.freesm-launcher.description": "a modewn waunchew fow modewn minecwaft xD a pwism w-waunchew fowk",
+  "components.hero.socials.title": "my s-sociaws",
+  "components.hero.socials.github": "github",
+  "components.hero.socials.telegram": "tewegwam",
+  "components.hero.socials.steam": "s-steam",
+  "components.hero.socials.discord": "discowd"
 }

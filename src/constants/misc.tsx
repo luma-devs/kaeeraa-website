@@ -38,27 +38,27 @@ export const Projects: Array<{
     },
 ];
 export const Socials: Array<{
-    name: string;
+    name: keyof NonNullable<DictionariesType>;
     link: string;
     icon: React.ReactNode;
 }> = [
     {
-        name: "Github",
+        name: "components.hero.socials.github",
         link: "https://github.com/kaeeraa",
         icon: <GithubIcon />,
     },
     {
-        name: "Telegram",
+        name: "components.hero.socials.telegram",
         link: "https://t.me/devstdin",
         icon: <TelegramIcon />,
     },
     {
-        name: "Steam",
+        name: "components.hero.socials.steam",
         link: "https://steamcommunity.com/id/kaeeraa_off/",
         icon: <SteamIcon />,
     },
     {
-        name: "Discord",
+        name: "components.hero.socials.discord",
         link: "https://discord.com/users/919249985873252412",
         icon: <DiscordIcon />,
     },

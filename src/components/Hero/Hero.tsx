@@ -80,13 +80,13 @@ export default function Hero({
                                 Projects.map((project) => {
                                     return (
                                         <Link
-                                            className="w-full flex flex-wrap sm:flex-nowrap gap-4 bg-neutral-900 p-2 rounded-lg"
+                                            className="transition w-full flex flex-wrap sm:flex-nowrap gap-4 bg-neutral-900 p-2 rounded-lg hover:bg-neutral-800"
                                             key={project.name}
                                             href={project.link}
                                             target="_blank"
                                         >
                                             <ConfiguredImage
-                                                className="mx-auto aspect-square object-cover size-24 rounded-lg shrink-0"
+                                                className="mx-auto aspect-square object-cover size-20 rounded-lg shrink-0"
                                                 src={project.image}
                                                 alt={`${project.name}'s banner`}
                                             />
@@ -122,7 +122,7 @@ export default function Hero({
                                                 {social.icon}
                                             </div>
                                             <p>
-                                                {social.name}
+                                                <Translate property={social.name} />
                                             </p>
                                         </Link>
                                     );
