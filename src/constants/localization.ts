@@ -1,5 +1,4 @@
 import { Locale } from "@/i18n-config";
-import { DictionariesType } from "@/types/Dictionaries/Dictionaries.type";
 
 export const CookieLocaleKey = "locale";
 export const DefaultLocale = "en";
@@ -21,11 +20,3 @@ export const LocaleItems: Record<Locale, {
         icon: "✧",
     },
 };
-export const ProgrammingLanguages: Array<string> = ["Python", "C++", "Go"];
-export const AboutMe: Array<keyof NonNullable<DictionariesType>> = [
-    "components.hero.about.work",
-    "components.hero.about.code-style",
-    "components.hero.about.nixos",
-    "components.hero.about.free-time",
-];
-//uwu: ["i wowk as a p-pwogwammer and wove w-wwiting cwean.., weadable code"],

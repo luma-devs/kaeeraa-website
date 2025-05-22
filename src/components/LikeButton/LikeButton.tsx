@@ -86,13 +86,13 @@ export default function LikeButton({
                 title={`${likesData.count ?? "?"} ${likesWord}`}
             >
                 <Heart className="shrink-0" size={18} />
-                <div>
+                <p>
                     {
                         likesData.count === null
                             ? dictionaries?.["components.like-button.error"]
                             : likesData.count
                     }
-                </div>
+                </p>
             </button>
         </>
     );

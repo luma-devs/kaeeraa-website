@@ -3,8 +3,9 @@ import LocaleSwitcher from "@/components/LocaleSwitcher/LocaleSwitcher";
 import Favicon from "@/../public/favicon.webp";
 import { Locale } from "@/i18n-config";
 import ConfiguredImage from "@/components/ConfiguredImage/ConfiguredImage";
-import { AboutMe, ProgrammingLanguages } from "@/constants/localization";
+import { AboutMe, ProgrammingLanguages, Socials } from "@/constants/misc";
 import Translate from "@/components/Translate/Translate";
+import Link from "next/link";
 
 export default function Hero({
     lang,
@@ -14,7 +15,7 @@ export default function Hero({
     return (
         <>
             <div className="p-8 w-full h-fit max-w-324 flex flex-wrap gap-4 flex-col lg:flex-row">
-                <div className="flex-1 min-h-106 flex flex-col justify-between gap-4 p-8 rounded-3xl lg:rounded-l-3xl lg:rounded-r-lg bg-neutral-950">
+                <div className="flex-1 min-h-106 flex flex-col justify-between gap-4 p-8 rounded-3xl lg:rounded-r-lg bg-neutral-950">
                     <div className="flex flex-col gap-4">
                         <div className="flex flex-wrap sm:flex-nowrap gap-4">
                             <ConfiguredImage
@@ -70,17 +71,37 @@ export default function Hero({
                     </div>
                 </div>
                 <div className="flex-1 flex flex-col gap-4">
-                    <div className="p-8 h-full rounded-3xl lg:rounded-r-3xl lg:rounded-l-lg bg-neutral-950">
+                    <div className="p-8 h-full rounded-3xl lg:rounded-br-lg lg:rounded-l-lg bg-neutral-950">
                         <p className="font-medium text-lg">
                             <Translate property={"components.hero.projects.title"} />
                         </p>
 
                     </div>
-                    <div className="p-8 shrink-0 rounded-3xl lg:rounded-r-3xl lg:rounded-l-lg bg-neutral-950">
+                    <div className="p-8 shrink-0 rounded-3xl lg:rounded-tr-lg lg:rounded-l-lg bg-neutral-950 flex flex-col gap-4">
                         <p className="font-medium text-lg">
                             <Translate property={"components.hero.socials.title"} />
                         </p>
-
+                        <div className="flex flex-wrap gap-2">
+                            {
+                                Socials.map((social) => {
+                                    return (
+                                        <Link
+                                            key={social.name}
+                                            className="bg-neutral-800 w-fit px-2 py-1 flex flex-nowrap gap-2 rounded-full items-center transition hover:bg-neutral-700"
+                                            target="_blank"
+                                            href={social.link}
+                                        >
+                                            <div className="flex justify-center items-center w-4 h-4">
+                                                {social.icon}
+                                            </div>
+                                            <p>
+                                                {social.name}
+                                            </p>
+                                        </Link>
+                                    );
+                                })
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
