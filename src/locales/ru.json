@@ -1,21 +1,13 @@
 {
-  "metadata": {
-    "description": "\"May your code be clean and your systems stable!\" ✨"
-  },
-  "components": {
-    "likeButton": {
-      "likesSingle": "лайк",
-      "likesFew": "лайка",
-      "likesMany": "лайков",
-      "error": "bwaaa, ошибка..."
-    },
-    "hero": {
-      "title": "ky",
-      "description": "sosi",
-      "about-work": "what",
-      "about-code-style": "nix победа",
-      "about-nixos": "uwu",
-      "about-free-time": "owo"
-    }
-  }
+  "metadata.description": "\"May your code be clean and your systems stable!\" ✨",
+  "components.like-button.likes-single": "лайк",
+  "components.like-button.likes-few": "лайка",
+  "components.like-button.likes-many": "лайков",
+  "components.like-button.error": "bwaaa, ошибка...",
+  "components.hero.title": "ку",
+  "components.hero.description": "соси",
+  "components.hero.about.work": "плюсы победа",
+  "components.hero.about.code-style": "чапман код стайл",
+  "components.hero.about.nixos": "нихос победа",
+  "components.hero.about.free-time": "каэда when"
 }

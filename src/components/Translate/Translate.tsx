@@ -7,13 +7,13 @@ import { DictionariesType } from "@/types/Dictionaries/Dictionaries.type";
 export default function Translate({
     property,
 }: {
-    property: keyof NonNullable<DictionariesType>[keyof Pick<NonNullable<DictionariesType>, "components">]["hero"];
+    property: keyof NonNullable<DictionariesType>;
 }) {
     const { dictionaries } = useContext(DictionariesContext);
 
     return (
         <>
-            {dictionaries?.components?.hero?.[property]}
+            {dictionaries?.[property]}
         </>
     );
 }

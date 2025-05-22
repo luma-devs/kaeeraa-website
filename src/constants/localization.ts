@@ -18,10 +18,10 @@ export const LocaleItems: Record<Locale, {
     },
 };
 export const ProgrammingLanguages: Array<string> = ["Python", "C++", "Go"];
-export const AboutMe: Array<keyof NonNullable<DictionariesType>[keyof Pick<NonNullable<DictionariesType>, "components">]["hero"]> = [
-    "about-work",
-    "about-code-style",
-    "about-nixos",
-    "about-free-time",
+export const AboutMe: Array<keyof NonNullable<DictionariesType>> = [
+    "components.hero.about.work",
+    "components.hero.about.code-style",
+    "components.hero.about.nixos",
+    "components.hero.about.free-time",
 ];
 //uwu: ["i wowk as a p-pwogwammer and wove w-wwiting cwean.., weadable code"],

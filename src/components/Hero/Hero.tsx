@@ -23,10 +23,10 @@ export default function Hero({
                         />
                         <div className="flex flex-col gap-2 justify-center">
                             <p className="font-medium leading-none text-lg">
-                                <Translate property={"title"} />
+                                <Translate property={"components.hero.title"} />
                             </p>
                             <p className="text-neutral-400 leading-none">
-                                <Translate property={"description"} />
+                                <Translate property={"components.hero.description"} />
                             </p>
                             <div className="flex gap-2">
                                 {

@@ -25,7 +25,7 @@ export async function generateMetadata({
     }>;
 }): Promise<Metadata> {
     const { lang } = await params;
-    const { metadata: { description } } = await getDictionary(lang);
+    const { "metadata.description": description } = await getDictionary(lang);
 
     return {
         icons: "/favicon.webp",

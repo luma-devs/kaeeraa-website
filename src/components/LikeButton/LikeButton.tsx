@@ -32,9 +32,9 @@ export default function LikeButton({
     const likesWord = makeWordEnding({
         replies: likesData.count ?? 0,
         wordTypes: [
-            dictionaries?.components?.likeButton?.likesSingle as string,
-            dictionaries?.components?.likeButton?.likesFew as string,
-            dictionaries?.components?.likeButton?.likesMany as string,
+            dictionaries?.["components.like-button.likes-single"] as string,
+            dictionaries?.["components.like-button.likes-few"] as string,
+            dictionaries?.["components.like-button.likes-many"] as string,
         ],
     });
 
@@ -89,7 +89,7 @@ export default function LikeButton({
                 <div>
                     {
                         likesData.count === null
-                            ? dictionaries?.components?.likeButton?.error
+                            ? dictionaries?.["components.like-button.error"]
                             : likesData.count
                     }
                 </div>

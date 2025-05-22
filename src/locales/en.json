@@ -1,21 +1,13 @@
 {
-  "metadata": {
-    "description": "\"May your code be clean and your systems stable!\" ✨"
-  },
-  "components": {
-    "likeButton": {
-      "likesSingle": "like",
-      "likesFew": "likes",
-      "likesMany": "likes",
-      "error": "bwaaa, an error..."
-    },
-    "hero": {
-      "title": "Hi! I'm Kaeeraa",
-      "description": "Problem-solver at heart, passionate about Linux (NixOS) and open-source apps.",
-      "about-work": "I work as a programmer and love writing clean, readable code",
-      "about-code-style": "No snake_case! Only kebab-case, PascalCase and camelCase",
-      "about-nixos": "A dedicated NixOS user — I value minimalism, stability, and control",
-      "about-free-time": "In my free time, I work on personal projects like FreesmLauncher or Kaede"
-    }
-  }
+  "metadata.description": "\"May your code be clean and your systems stable!\" ✨",
+  "components.like-button.likes-single": "like",
+  "components.like-button.likes-few": "likes",
+  "components.like-button.likes-many": "likes",
+  "components.like-button.error": "bwaaa, an error...",
+  "components.hero.title": "Hi! I'm Kaeeraa",
+  "components.hero.description": "Problem-solver at heart, passionate about Linux (NixOS) and open-source apps.",
+  "components.hero.about.work": "I work as a programmer and love writing clean, readable code",
+  "components.hero.about.code-style": "No snake_case! Only kebab-case, PascalCase and camelCase",
+  "components.hero.about.nixos": "A dedicated NixOS user — I value minimalism, stability, and control",
+  "components.hero.about.free-time": "In my free time, I work on personal projects like FreesmLauncher or Kaede"
 }
