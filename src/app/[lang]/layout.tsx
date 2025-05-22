@@ -50,7 +50,20 @@ export default async function RootLayout({
     params: Promise<{ lang: Locale }>;
 }>) {
     const { lang } = await params;
-    const currentLang: Locale = lang === "ru" ? "ru" : DefaultLocale;
+    let currentLang: Locale;
+
+    switch (lang) {
+        case "en":
+        case "ru":
+        case "uwu": {
+            currentLang = lang;
+            break;
+        }
+        default: {
+            currentLang = DefaultLocale;
+        }
+    }
+
     const englishDictionaries = await getDictionary("en");
     const russianDictionaries = await getDictionary("ru");
     const uwuDictionaries = await getDictionary("uwu");

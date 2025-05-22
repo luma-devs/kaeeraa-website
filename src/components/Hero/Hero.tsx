@@ -21,7 +21,7 @@ export default function Hero({
                             <ConfiguredImage
                                 src={Favicon}
                                 alt="Kaeeraa's profile picture"
-                                className="mx-auto h-24 w-24 object-cover shrink-0 box-content rounded-full p-0.5 [background:linear-gradient(45deg,theme(colors.neutral.900))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.neutral.600/.48)_60%,_theme(colors.neutral.300)_72%,_theme(colors.neutral.100)_80%,_theme(colors.neutral.300)_88%,_theme(colors.neutral.600/.48))_border-box] border-2 border-transparent animate-border transition"
+                                className="mx-auto h-24 w-24 object-cover shrink-0 box-content rounded-full p-0.5 [background:linear-gradient(45deg,theme(colors.neutral.900))_padding-box,conic-gradient(from_var(--border-angle),theme(colors.neutral.600/.48)_60%,_theme(colors.neutral.300)_72%,_theme(colors.neutral.100)_80%,_theme(colors.neutral.300)_88%,_theme(colors.neutral.600/.48))_border-box] border-2 border-transparent animate-border transition duration-300"
                             />
                             <div className="min-w-[65%] shrink-0 flex-1 flex flex-col gap-2 justify-center">
                                 <p className="font-medium leading-none text-lg">
@@ -86,7 +86,7 @@ export default function Hero({
                                             target="_blank"
                                         >
                                             <ConfiguredImage
-                                                className="mx-auto aspect-square object-cover size-20 rounded-lg shrink-0"
+                                                className="transition duration-300 mx-auto aspect-square object-cover size-20 rounded-lg shrink-0"
                                                 src={project.image}
                                                 alt={`${project.name}'s banner`}
                                             />
